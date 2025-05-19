@@ -2,6 +2,9 @@ FROM php:8.3-fpm-alpine
 
 WORKDIR /var/www/html
 
+# Instalar las bibliotecas de desarrollo de PostgreSQL
+RUN apk add --no-cache libpq-dev
+
 # Instalar extensiones PHP necesarias
 RUN docker-php-ext-install pdo pdo_pgsql bcmath mbstring exif pcntl gd
 
