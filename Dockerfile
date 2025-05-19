@@ -7,10 +7,11 @@ RUN apk add --no-cache libpq-dev \
     build-base \
     oniguruma-dev \
     zlib-dev \
-    libxml2-dev # Añadido para la extensión xml
+    libxml2-dev \
+    libpng-dev # Añadido libpng-dev
 
 # Instalar extensiones PHP necesarias
-RUN docker-php-ext-install pdo pdo_pgsql bcmath mbstring exif pcntl gd xml # Añadido xml
+RUN docker-php-ext-install pdo pdo_pgsql bcmath mbstring exif pcntl gd xml
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
