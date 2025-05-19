@@ -5,10 +5,12 @@ WORKDIR /var/www/html
 # Instalar las bibliotecas de desarrollo de PostgreSQL y otras dependencias
 RUN apk add --no-cache libpq-dev \
     build-base \
-    oniguruma-dev
+    oniguruma-dev \
+    zlib-dev \
+    libxml2-dev # Añadido para la extensión xml
 
 # Instalar extensiones PHP necesarias
-RUN docker-php-ext-install pdo pdo_pgsql bcmath mbstring exif pcntl gd
+RUN docker-php-ext-install pdo pdo_pgsql bcmath mbstring exif pcntl gd xml # Añadido xml
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
