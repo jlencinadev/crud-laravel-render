@@ -8,7 +8,8 @@ RUN apk add --no-cache libpq-dev \
     oniguruma-dev \
     zlib-dev \
     libxml2-dev \
-    libpng
+    libpng \
+    libpng-dev
 
 # Instalar extensiones PHP necesarias
 RUN docker-php-ext-install pdo pdo_pgsql bcmath mbstring exif pcntl gd xml
