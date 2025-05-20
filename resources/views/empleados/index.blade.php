@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h1>Empleados</h1>
-        <a href="{{ route('empleados.create') }}" class="btn btn-primary mb-3">Crear Empleado</a>
+        <a href="{{ route('empleados.create') }}" class="btn btn-warning mb-3">Crear Empleado</a>
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
@@ -34,12 +34,12 @@
                             <td>{{ $empleado->dni }}</td>
                             <td>{{ $empleado->departamento->nombre }}</td>
                             <td>
-                                <a href="{{ route('empleados.show', $empleado) }}" class="btn btn-info btn-sm">Ver</a>
+                                <a href="{{ route('empleados.show', $empleado) }}" class="btn btn-warning btn-sm">Ver</a>
                                 <a href="{{ route('empleados.edit', $empleado) }}" class="btn btn-warning btn-sm">Editar</a>
                                 <form action="{{ route('empleados.destroy', $empleado) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este empleado?')">Eliminar</button>
+                                    <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('¿Estás seguro de eliminar este empleado?')">Eliminar</button>
                                 </form>
                             </td>
                         </tr>

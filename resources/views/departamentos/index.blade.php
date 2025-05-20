@@ -10,6 +10,7 @@
     <div class="container mt-5">
         <h1>Departamentos</h1>
         <a href="{{ route('departamentos.create') }}" class="btn btn-primary mb-3">Crear Departamento</a>
+        <a href="{{ route('empleados.create') }}" class="btn btn-success mb-3 ms-2">Crear Empleado</a>
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif

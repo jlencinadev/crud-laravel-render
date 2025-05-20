@@ -44,9 +44,10 @@
                     <div class="alert alert-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="{{ route('empleados.index') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-warning">Guardar</button>
+            <a href="{{ route('empleados.index') }}" class="btn btn-warning">Cancelar</a>
         </form>
+        <a href="{{ route('departamentos.create') }}" class="btn btn-warning mb-3 ms-4">Volver a Crear Departamento</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
