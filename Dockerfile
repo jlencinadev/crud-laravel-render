@@ -13,9 +13,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     libpq-dev \
     libzip-dev \
-       libpng \
-    libpng-dev
-
+    && docker-php-ext-configure gd --with-jpeg --with-png \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip exif pcntl bcmath gd
 
 # Instala Composer
