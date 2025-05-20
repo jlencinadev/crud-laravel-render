@@ -8,5 +8,5 @@ Route::resource('departamentos', DepartamentoController::class);
 Route::resource('empleados', EmpleadoController::class);
 
 Route::get('/', function () {
-    return redirect()->route('departamentos.index');
+    return view('departamentos.index'); 
 });

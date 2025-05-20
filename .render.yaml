@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: Laravelcrud
+    env: docker
+    plan: free
+    repo: https://github.com/jlencinadev/crud-laravel-render.git
+    branch: master
+    rootDir: .
+    dockerfilePath: Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true

@@ -1,45 +1,39 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.3-fpm
 
-WORKDIR /var/www/html
-
-# Instalar las bibliotecas de desarrollo de PostgreSQL y otras dependencias
-RUN apk add --no-cache libpq-dev \
-    build-base \
-    oniguruma-dev \
-    zlib-dev \
+# Instala dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg-dev \
+    libonig-dev \
     libxml2-dev \
-    libpng \
+    zip \
+    unzip \
+    git \
+    curl \
+    libpq-dev \
+    libzip-dev \
+       libpng \
     libpng-dev
 
-# Instalar extensiones PHP necesarias
-RUN docker-php-ext-install pdo pdo_pgsql bcmath mbstring exif pcntl gd xml
+    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath gd
 
-# Instalar Composer
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+# Instala Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copiar los archivos de la aplicación
+# Copia el proyecto Laravel
+WORKDIR /var/www
 COPY . .
 
-# Instalar las dependencias de Composer
+# Instala dependencias del proyecto
 RUN composer install --no-dev --optimize-autoloader
 
-# Copiar el archivo .env (se configurará en Render)
-COPY .env.example .env
+# Genera APP_KEY y enlaces
+RUN php artisan key:generate && \
+    php artisan storage:link || true
 
-# Generar la key de la aplicación
-RUN php artisan key:generate
-
-# Optimizar la aplicación para producción
-RUN php artisan route:cache
-RUN php artisan config:cache
-RUN php artisan view:cache
-
-# Establecer los permisos
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Exponer el puerto 8000 (el puerto por defecto de Artisan serve)
+# Exposición del puerto para PHP server
 EXPOSE 8000
 
-# Comando para iniciar el servidor de Artisan (solo para desarrollo, Render usará su propio servidor)
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Comando para ejecutar la aplicación
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
